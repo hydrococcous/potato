@@ -8,10 +8,36 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.2/lodash.min.js"></script>
     <script src="app.js"></script>
 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css" />
+
 </head>
 <body ng-app="potatoApp">
 
     <div class="potato-list-wrap" ng-controller="potatoCtrl">
+
+        <table class="table table-hover potato-list">
+            <tr>
+                <th>Name</th>
+                <th>Herkunft</th>
+                <th>Blüte</th>
+                <th>Knolle</th>
+                <th>Schale</th>
+                <th>Ernte</th>
+                <th>Geschmack</th>
+                <th>Typ</th>
+            </tr>
+            <tr class="potato-item" ng-repeat="potatos in potatoData">
+                <td><strong>{{potatos.name}}</strong></td>
+                <td>{{potatos.herkunft}}</td>
+                <td>{{potatos.bluete}}</td>
+                <td>{{potatos.knolle}}</td>
+                <td>{{potatos.schale}}</td>
+                <td>{{potatos.ernte}}</td>
+                <td>{{potatos.geschmack}}</td>
+                <td>{{potatos.typ|arrayToList}}</td>
+            </tr>
+        </table>
 
     </div>
 
