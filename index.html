@@ -14,30 +14,51 @@
 </head>
 <body ng-app="potatoApp">
 
-    <div class="potato-list-wrap" ng-controller="potatoCtrl">
+    <div class="container">
 
-        <table class="table table-hover potato-list">
-            <tr>
-                <th>Name</th>
-                <th>Herkunft</th>
-                <th>Blüte</th>
-                <th>Knolle</th>
-                <th>Schale</th>
-                <th>Ernte</th>
-                <th>Geschmack</th>
-                <th>Typ</th>
-            </tr>
-            <tr class="potato-item" ng-repeat="potatos in potatoData">
-                <td><strong>{{potatos.name}}</strong></td>
-                <td>{{potatos.herkunft}}</td>
-                <td>{{potatos.bluete}}</td>
-                <td>{{potatos.knolle}}</td>
-                <td>{{potatos.schale}}</td>
-                <td>{{potatos.ernte}}</td>
-                <td>{{potatos.geschmack}}</td>
-                <td>{{potatos.typ|arrayToList}}</td>
-            </tr>
-        </table>
+        <div class="potato-list-wrap" ng-controller="potatoCtrl">
+
+            <table class="table table-hover potato-list">
+                <tr>
+                    <th>Name</th>
+                    <th>Herkunft</th>
+                    <th>Blüte</th>
+                    <th>Knolle</th>
+                    <th>Schale</th>
+                    <th>Ernte</th>
+                    <th>Ertrag</th>
+                    <th>Geschmack</th>
+                    <th>Typ</th>
+                </tr>
+                <tr class="potato-item" ng-repeat="potatos in potatoData | typeFilter: selectedType | pickingFilter: selectedPicking" ng-class="{'hit': potatos.hit, 'foo': potatos.pick}">
+                    <td><strong>{{potatos.name}}</strong></td>
+                    <td>{{potatos.herkunft}}</td>
+                    <td>{{potatos.bluete}}</td>
+                    <td>{{potatos.knolle}}</td>
+                    <td>{{potatos.schale}}</td>
+                    <td>{{potatos.ernte}}</td>
+                    <td>{{potatos.ertrag}}</td>
+                    <td>{{potatos.geschmack}}</td>
+                    <td>{{potatos.typ|arrayToList}}</td>
+                </tr>
+            </table>
+
+            <form>
+                <div class="form-group">
+                    <label>Kochtyp:</label>
+                    <select class="form-control" ng-model="selectedType" ng-options="type for type in filteredTypes">
+                        <option value="">bitte auswählen</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Ernte:</label>
+                    <select class="form-control" ng-model="selectedPicking" ng-options="picking for picking in filteredPickings">
+                        <option value="">bitte auswählen</option>
+                    </select>
+                </div>
+            </form>
+
+        </div>
 
     </div>
 
