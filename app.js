@@ -13,32 +13,45 @@
         $http.get(jsonPath).then(function(response){
 
             $scope.potatoData = response.data;
-
-            // Typen als Array für Selectbox
-            $scope.types = _.chain($scope.potatoData).map("typ").value();
-            $scope.typesArr = [];
-            angular.forEach($scope.types, function(types, index){
-                angular.forEach(types, function(type, index){
-                    $scope.typesArr.push(type);
-                });
-            });
-            $scope.filteredTypes = _.chain($scope.typesArr).uniq().sortBy().value();
-
-            // Typen als Array für Selectbox
-            $scope.pickings = _.chain($scope.potatoData).map("ernte").value();
-            $scope.pickingsArr = [];
-            angular.forEach($scope.pickings, function(pickings, index){
-                //angular.forEach(pickings, function(picking, index){
-                    $scope.pickingsArr.push(pickings);
-                //});
-            });
-            $scope.filteredPickings = _.chain($scope.pickingsArr).uniq().sortBy().value();
-
-
+			
+			// Kochtypen als Object
+			$scope.typesArr = [];
+			for(var i = 0; i < $scope.potatoData.length; i++){
+				for(var k = 0; k < $scope.potatoData[i].typ.length; k++){
+					$scope.typesArr.push($scope.potatoData[i].typ[k]);
+					}
+				}	
+			$scope.uniqueTypes = $scope.typesArr.filter(function(item, index){
+				return $scope.typesArr.indexOf(item) == index;
+				});
+				
+			// Erntezeit als Object
+			$scope.pickingArr = [];
+			for(var i = 0; i < $scope.potatoData.length; i++){
+				for(var k = 0; k < $scope.potatoData[i].ernte.length; k++){
+					$scope.pickingArr.push($scope.potatoData[i].ernte[k]);
+					}
+				}	
+			$scope.uniquePicking = $scope.pickingArr.filter(function(item, index){
+				return $scope.pickingArr.indexOf(item) == index;
+				});
+				
 
         });
 
-    });
+    }).directive('modelToNull', [function () {
+        return {
+            scope: {
+                check: "&modelToNull"
+            },
+            require: 'ngModel',
+            link: function ($scope, element, attrs, ngModelController) {
+                ngModelController.$parsers.push(function (value) {
+                    return value == null || $scope.check({value: value}) ? null : value;
+                });
+            }
+        };
+    }]);
 
 
     potatoApp.filter('arrayToList', function(){
@@ -46,56 +59,6 @@
             return arr.join(',');
         }
     });
-
-    potatoApp.filter('typeFilter', ['$filter', function($filter){
-
-        return function(potatoData, selectedTypes){
-
-            var types = [];
-
-            angular.forEach(potatoData, function(item){
-                if(item.typ.indexOf(selectedTypes) != -1){
-                    item.hit = true;
-                    types.push(item);
-                }
-                else {
-                    item.hit = false;
-                    types.push(item);
-                }
-            });
-
-            return types;
-
-        }
-
-    }]);
-
-
-    potatoApp.filter('pickingFilter', ['$filter', function($filter){
-
-        return function(potatoData, selectedPicking){
-
-            var pickings = [];
-            console.log(selectedPicking);
-
-            angular.forEach(potatoData, function(item){
-                if(item.ernte.indexOf(selectedPicking) != -1){
-                    item.pick = true;
-                    pickings.push(item);
-                }
-                else {
-                    item.pick = false;
-                    pickings.push(item);
-                }
-            });
-
-
-            return pickings;
-
-        }
-
-    }]);
-
 
 
 })();

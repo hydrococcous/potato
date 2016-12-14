@@ -17,7 +17,18 @@
     <div class="container">
 
         <div class="potato-list-wrap" ng-controller="potatoCtrl">
-
+        
+            <form>
+            	<hr />
+                <div class="form-group">
+                    <select class="form-control" ng-model="obj.cookingType" ng-options="type for type in uniqueTypes"><option value="">Kochtyp</option></select>
+         		</div>
+                <hr />
+                <div class="form-group">
+                    <select class="form-control" ng-model="obj.pickingType" ng-options="picking for picking in uniquePicking"><option value="">Erntezeit</option></select>
+         		</div>
+            </form>
+            
             <table class="table table-hover potato-list">
                 <tr>
                     <th>Name</th>
@@ -30,33 +41,18 @@
                     <th>Geschmack</th>
                     <th>Typ</th>
                 </tr>
-                <tr class="potato-item" ng-repeat="potatos in potatoData | typeFilter: selectedType | pickingFilter: selectedPicking" ng-class="{'hit': potatos.hit, 'foo': potatos.pick}">
+                <tr class="potato-item" ng-repeat="potatos in potatoData | filter: obj.cookingType : true | filter: obj.pickingType : true">
                     <td><strong>{{potatos.name}}</strong></td>
                     <td>{{potatos.herkunft}}</td>
                     <td>{{potatos.bluete}}</td>
                     <td>{{potatos.knolle}}</td>
                     <td>{{potatos.schale}}</td>
-                    <td>{{potatos.ernte}}</td>
+                    <td>{{potatos.ernte|arrayToList}}</td>
                     <td>{{potatos.ertrag}}</td>
                     <td>{{potatos.geschmack}}</td>
                     <td>{{potatos.typ|arrayToList}}</td>
                 </tr>
             </table>
-
-            <form>
-                <div class="form-group">
-                    <label>Kochtyp:</label>
-                    <select class="form-control" ng-model="selectedType" ng-options="type for type in filteredTypes">
-                        <option value="">bitte auswählen</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label>Ernte:</label>
-                    <select class="form-control" ng-model="selectedPicking" ng-options="picking for picking in filteredPickings">
-                        <option value="">bitte auswählen</option>
-                    </select>
-                </div>
-            </form>
 
         </div>
 
