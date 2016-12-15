@@ -1,9 +1,1 @@
-TABLE.potato-list TH{
-    background-color: #228b22;
-    color: #ffffff;
-}
-
-TABLE.potato-list TR.hit,
-TABLE.potato-list TR.foo{
-    background-color: #d3d3d3;
-}
+*{}

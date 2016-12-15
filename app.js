@@ -38,6 +38,7 @@
 			
 			// Filter	
 			$scope.customFilter = function(item){
+				
 				if(item === null){
 					return "";
 					} else {

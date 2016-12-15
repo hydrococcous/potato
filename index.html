@@ -44,7 +44,7 @@
                     <th>Geschmack</th>
                     <th>Typ</th>
                 </tr>
-                <tr class="potato-item" ng-repeat="potatos in potatoData | filter: customFilter(obj.cookingType) | filter: customFilter(obj.pickingType)">
+                <tr class="potato-item" ng-repeat="potatos in filterdPotatoData = (potatoData | filter: customFilter(obj.cookingType) | filter: customFilter(obj.pickingType))">
                     <td><strong>{{potatos.name}}</strong></td>
                     <td>{{potatos.herkunft}}</td>
                     <td>{{potatos.bluete}}</td>
@@ -56,6 +56,8 @@
                     <td>{{potatos.typ|arrayToList}}</td>
                 </tr>
             </table>
+     
+          	<div class="alert alert-info" ng-show="!filterdPotatoData.length">Für Ihre Auwahl liegen keine Ergebnisse vor</div>
 
         </div>
 
