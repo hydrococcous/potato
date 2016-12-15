@@ -35,24 +35,19 @@
 			$scope.uniquePicking = $scope.pickingArr.filter(function(item, index){
 				return $scope.pickingArr.indexOf(item) == index;
 				});
-				
-
+			
+			// Filter	
+			$scope.customFilter = function(item){
+				if(item === null){
+					return "";
+					} else {
+					return item;
+					}
+				}
+		
         });
 
-    }).directive('modelToNull', [function () {
-        return {
-            scope: {
-                check: "&modelToNull"
-            },
-            require: 'ngModel',
-            link: function ($scope, element, attrs, ngModelController) {
-                ngModelController.$parsers.push(function (value) {
-                    return value == null || $scope.check({value: value}) ? null : value;
-                });
-            }
-        };
-    }]);
-
+    });
 
     potatoApp.filter('arrayToList', function(){
         return function(arr) {

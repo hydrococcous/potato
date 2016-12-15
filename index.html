@@ -17,15 +17,19 @@
     <div class="container">
 
         <div class="potato-list-wrap" ng-controller="potatoCtrl">
-        
+
             <form>
             	<hr />
                 <div class="form-group">
-                    <select class="form-control" ng-model="obj.cookingType" ng-options="type for type in uniqueTypes"><option value="">Kochtyp</option></select>
+                    <select class="form-control" ng-model="obj.cookingType" ng-options="type for type in uniqueTypes">
+                    	<option value="">Kochtyp</option>
+                    </select>
          		</div>
                 <hr />
                 <div class="form-group">
-                    <select class="form-control" ng-model="obj.pickingType" ng-options="picking for picking in uniquePicking"><option value="">Erntezeit</option></select>
+                    <select class="form-control" ng-model="obj.pickingType" ng-options="type for type in uniquePicking">
+                    	<option value="">Erntezeit</option>
+                    </select>
          		</div>
             </form>
             
@@ -41,7 +45,7 @@
                     <th>Geschmack</th>
                     <th>Typ</th>
                 </tr>
-                <tr class="potato-item" ng-repeat="potatos in potatoData | filter: obj.cookingType : true | filter: obj.pickingType : true">
+                <tr class="potato-item" ng-repeat="potatos in potatoData | filter: customFilter(obj.cookingType) | filter: customFilter(obj.pickingType)">
                     <td><strong>{{potatos.name}}</strong></td>
                     <td>{{potatos.herkunft}}</td>
                     <td>{{potatos.bluete}}</td>
